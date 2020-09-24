@@ -204,7 +204,7 @@ func (t *TaskScheduler) Get(taskName string) ([]Tasks, bool) {
 }
 
 // TaskName method is the run type option of each task that execute once only
-func (s *Tasks) TaskName(taskName string) *Tasks {
+func TaskName(taskName string) *Tasks {
 	newTaskName := strings.TrimSpace(taskName)
 	if len(newTaskName) == 0 {
 		taskName = uuid.New().String() // Assign with random strings if empty
@@ -359,12 +359,6 @@ func (s *Tasks) AddTask() {
 		color.Red(msg)
 	}
 
-	// Format next scheduled run
-	nextSched, _ := formatDT(nextSchedToRun, logDateTimeFormat)
-	msg := s.Name + " next schedule to run on: " + nextSched
-	itrlog.Infow(msg, "log_time", time.Now().Format(logDateTimeFormat))
-	color.Magenta(msg)
-
 	newTask := Tasks{
 		Name:              s.Name,
 		RunType:           s.RunType,
@@ -381,18 +375,24 @@ func (s *Tasks) AddTask() {
 		created:           time.Now().Unix(),
 	}
 	TS.TaskList[s.Name] = []Tasks{newTask}
+
+	// Format next scheduled run
+	nextSched, _ := formatDT(nextSchedToRun, logDateTimeFormat)
+	msg := s.Name + " base start datetime at: " + nextSched
+	itrlog.Infow(msg, "log_time", time.Now().Format(logDateTimeFormat))
+	color.Cyan(msg)
 }
 
 // Run executes the task scheduler's individual task item
-func (t *TaskScheduler) Run() {
+func Run() {
 mainloop:
 	for {
-		for _, e := range t.TaskList {
+		for _, e := range TS.TaskList {
 			for _, s := range e {
 				// Check if due for execution
 				unixTimeNow := time.Now().Unix()
 				if s.nextRunTime == unixTimeNow {
-					t.UpdateNextRunTime(&s)
+					TS.UpdateNextRunTime(&s)
 					go s.ExecuteFunc()
 				}
 			}
