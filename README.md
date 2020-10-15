@@ -48,7 +48,7 @@ func main() {
 }
 ```
 # Subscribe to Maharlikans Code Youtube Channel:
-Please subscribe to my Youtube Channel to recognize my work on this package. Thank you for your support!
+Please consider subscribing to my Youtube Channel to recognize my work on this package. Thank you for your support!
 https://www.youtube.com/channel/UCdAVUmldU9Jn2VntuQChHqQ/
 
 # License
