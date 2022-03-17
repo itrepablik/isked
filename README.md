@@ -2,13 +2,13 @@
 The **isked** package is the simplified and easy to use task schedulers for your Go projects.
 
 # Installation
-```
+```go
 go get -u github.com/itrepablik/isked
 ```
 
 # Usage
 These are some of the examples on how you can use isked package.
-```
+```go
 package main
 
 import (
