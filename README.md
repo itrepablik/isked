@@ -23,7 +23,7 @@ func myFunc1() {
 
 func myFunc2(s string) func() {
 	return func() {
-		fmt.Println("calling from myFunc4(): ", s)
+		fmt.Println("calling from myFunc2(): ", s)
 	}
 }
 
